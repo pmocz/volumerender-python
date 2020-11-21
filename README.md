@@ -12,4 +12,4 @@ Volume render a 3D datacube
 python volumerender.py
 ```
 
-![Simulation](./volumerender0.png)
+![Simulation](./volumerender.png)
