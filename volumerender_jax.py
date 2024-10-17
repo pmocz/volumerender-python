@@ -14,6 +14,29 @@ Philip Mocz (2020) Princeton Univeristy, @PMocz
 Simulate the Schrodinger-Poisson system with the Spectral method
 """
 
+@jit
+def transferFunction(x):
+    r = 1.0*jnp.exp( -(x - 9.0)**2/1.0 ) +  0.1*jnp.exp( -(x - 3.0)**2/0.1 ) +  0.1*jnp.exp( -(x - -3.0)**2/0.5 )
+    g = 1.0*jnp.exp( -(x - 9.0)**2/1.0 ) +  1.0*jnp.exp( -(x - 3.0)**2/0.1 ) +  0.1*jnp.exp( -(x - -3.0)**2/0.5 )
+    b = 0.1*jnp.exp( -(x - 9.0)**2/1.0 ) +  0.1*jnp.exp( -(x - 3.0)**2/0.1 ) +  1.0*jnp.exp( -(x - -3.0)**2/0.5 )
+    a = 0.6*jnp.exp( -(x - 9.0)**2/1.0 ) +  0.1*jnp.exp( -(x - 3.0)**2/0.1 ) + 0.01*jnp.exp( -(x - -3.0)**2/0.5 )
+    
+    return r, g, b, a
+
+@jit
+def get_query_points(angle, qx, qy, qz):
+    qxR = qx
+    qyR = qy * jnp.cos(angle) - qz * jnp.sin(angle) 
+    qzR = qy * jnp.sin(angle) + qz * jnp.cos(angle)
+
+    return qxR, qyR, qzR 
+
+@jit
+def update_color(a, x, image_x):
+    color = a * x + (1 - a) * image_x
+
+    return color 
+
 def main():
     """ Volume Rendering """
     
