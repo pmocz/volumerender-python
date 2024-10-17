@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import h5py as h5
 from scipy.interpolate import interpn
+import time
 
 """
 Create Your Own Volume Rendering (With Python)
@@ -33,6 +34,8 @@ def main():
 	y = np.linspace(-Ny/2, Ny/2, Ny)
 	z = np.linspace(-Nz/2, Nz/2, Nz)
 	points = (x, y, z)
+	
+	t0 = time.time()
 	
 	# Do Volume Rendering at Different Veiwing Angles
 	Nangles = 10
@@ -71,10 +74,11 @@ def main():
 		plt.axis('off')
 		
 		# Save figure
-		plt.savefig('volumerender' + str(i) + '.png',dpi=240,  bbox_inches='tight', pad_inches = 0)
+		plt.savefig('render/volumerender' + str(i) + '.png',dpi=240,  bbox_inches='tight', pad_inches = 0)
 	
 	
-	
+	print(f"time {(time.time() - t0)} s")
+
 	# Plot Simple Projection -- for Comparison
 	plt.figure(figsize=(4,4), dpi=80)
 	
@@ -83,7 +87,7 @@ def main():
 	plt.axis('off')
 	
 	# Save figure
-	plt.savefig('projection.png',dpi=240,  bbox_inches='tight', pad_inches = 0)
+	plt.savefig('render/projection.png',dpi=240,  bbox_inches='tight', pad_inches = 0)
 	plt.show()
 	
 

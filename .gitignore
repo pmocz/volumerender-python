@@ -1,6 +1,7 @@
 *.h5
 *.hdf5
 *.png
+*.mp4
 /render
 
 **/.DS_Store
